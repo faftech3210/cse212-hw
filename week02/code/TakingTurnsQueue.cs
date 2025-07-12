@@ -37,17 +37,21 @@ public class TakingTurnsQueue
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
-        {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
+        var person = _people.Dequeue();
+        var originalTurns = person.Turns;
 
-            return person;
+        if (originalTurns <= 0)
+        {
+            _people.Enqueue(person); // infinite turns, re-add unchanged
         }
+        else if (originalTurns > 1)
+        {
+            person.Turns -= 1; // decrement and re-add
+            _people.Enqueue(person);
+        }
+        // else turns == 1, do not re-add
+
+        return new Person(person.Name, originalTurns); // return snapshot
     }
 
     public override string ToString()
