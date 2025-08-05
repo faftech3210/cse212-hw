@@ -168,26 +168,6 @@ public static class Recursion
 
         // TODO Start Problem 5
         // ADD CODE HERE
-        if (!maze.IsValidMove(x, y, currPath))
-            return;
-
-        currPath.Add((x, y));
-
-        if (maze.IsEnd(x, y))
-        {
-            results.Add(currPath.AsString());
-        }
-        else
-        {
-            SolveMaze(results, maze, x + 1, y, currPath); // Right
-            SolveMaze(results, maze, x - 1, y, currPath); // Left
-            SolveMaze(results, maze, x, y + 1, currPath); // Down
-            SolveMaze(results, maze, x, y - 1, currPath); // Up
-        }
-
-        currPath.RemoveAt(currPath.Count - 1); // Backtrack
-
-
         // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
     }
 }
