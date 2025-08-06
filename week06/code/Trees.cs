@@ -22,9 +22,9 @@ public static class Trees
     /// 'last'.
     /// For example, if the function was called on:
     ///
-    /// sortedNumbers = new[]{10, 20, 30, 40, 50, 60};
-    /// first = 0;
-    /// last = 5;
+    // / sortedNumbers = new[]{10, 20, 30, 40, 50, 60};
+    // / first = 0;
+    // / last = 5;
     /// 
     /// then the value 30 (index 2 which is the middle) would be added 
     /// to the 'bst' (the insert function in the <see cref="BinarySearchTree"/> can be used
@@ -49,5 +49,14 @@ public static class Trees
     private static void InsertMiddle(int[] sortedNumbers, int first, int last, BinarySearchTree bst)
     {
         // TODO Start Problem 5
+        if (first > last)
+        return; // Base case: no elements to insert
+
+        int mid = (first + last) / 2; // Find middle index
+        bst.Insert(sortedNumbers[mid]); // Insert middle element into BST
+
+        // Recursively insert middle elements from left and right subarrays
+        InsertMiddle(sortedNumbers, first, mid - 1, bst); // Left half
+        InsertMiddle(sortedNumbers, mid + 1, last, bst);  // Right half
     }
 }
